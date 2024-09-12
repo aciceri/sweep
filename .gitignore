@@ -3,4 +3,5 @@
 /zephyr
 /zmk
 /build
-/result
+result
+.direnv
