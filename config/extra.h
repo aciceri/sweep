@@ -1,0 +1,43 @@
+// This is heavily inspired by: https://github.com/duckyb/zmk-sweep
+
+#define E_BSLH GRAVE            // backslash
+#define E_SQUOT MINUS           // '
+#define E_IGRV EQUAL            // ì
+#define E_EGRV LBKT             // è
+#define E_EACU LS(LBKT)         // é
+#define E_OGRV SEMI             // ò
+#define E_AGRV APOS             // à
+#define E_UGRV NON_US_HASH      // ù
+#define E_LESS NON_US_BSLH      // <
+#define E_PLUS SLASH            // +
+#define E_MINUS RBKT            // -
+#define E_PIPE LS(GRAVE)        // |
+#define E_EXCL LS(N1)           // !
+#define E_DQUOT LS(N2)          // "
+#define E_PND LS(N3)            // £
+#define E_USD LS(N4)            // $
+#define E_PERC LS(N5)           // %
+#define E_AND LS(N6)            // &
+#define E_FSLH LS(N7)           // /
+#define E_LPAR LS(N8)           // (
+#define E_RPAR LS(N9)           // )
+#define E_EQL LS(N0)            // =
+#define E_QUES LS(MINUS)        // ?
+#define E_CARET LS(EQUAL)       // ^
+#define E_AST LS(RBKT)          // *
+#define E_CCED LS(SEMI)         // ç
+#define E_DEG LS(APOS)          // °
+#define E_SECT LS(NON_US_HASH)  // §
+#define E_GREAT LS(NON_US_BSLH) // >
+#define E_UNDER LS(SLASH)       // _
+#define E_EUR RA(E)             // €
+#define E_LBKT RA(LBKT)         // [
+#define E_RBKT RA(RBKT)         // ]
+#define E_AT RA(SEMI)           // @
+#define E_HASH RA(APOS)         // #
+#define E_LBRC LS(RA(LBKT))     // {
+#define E_RBRC LS(RA(RBKT))     // }
+#define E_BKTK RA(MINUS)        // `
+#define E_TILDE RA(EQUAL)       // ~
+#define E_CEGR RA(LS(E))        // È
+
