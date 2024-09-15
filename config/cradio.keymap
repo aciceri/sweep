@@ -15,6 +15,11 @@
       #binding-cells = <0>;
       bindings = <&kp COLON>, <&kp W>, <&kp ENTER>;
     };
+    write_quit_vim: write_quit_vim{
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&kp COLON>, <&kp W>, <&kp Q>, <&kp ENTER>;
+    };
   };
   combos {
       compatible = "zmk,combos";
@@ -32,6 +37,11 @@
         timeout-ms = <60>;
         key-positions = <8 9>;
         bindings = <&write_vim>;
+      };
+      combo_write_quit_vim {
+        timeout-ms = <60>;
+        key-positions = <7 8 9>;
+        bindings = <&write_quit_vim>;
       };
       combo_caps_lock {
         timeout-ms = <60>;
