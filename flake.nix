@@ -1,54 +1,44 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+
     zmk-nix = {
       url = "github:lilyinstarlight/zmk-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" ];
-      perSystem =
-        { config
-        , inputs'
-        , pkgs
-        , lib
-        , zmk-nix
-        , ...
-        }: {
-          _module.args.zmk-nix = inputs'.zmk-nix;
+  outputs = { self, nixpkgs, zmk-nix }:
+    let
+      forAllSystems = nixpkgs.lib.genAttrs (nixpkgs.lib.attrNames zmk-nix.packages);
+    in
+    {
+      packages = forAllSystems (system: rec {
+        default = firmware;
 
-          packages = {
-            firmware = zmk-nix.legacyPackages.buildSplitKeyboard {
-              name = "sweep-firmware";
+        firmware = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
+          name = "firmware";
 
-              src = lib.sourceFilesBySuffices inputs.self [ ".conf" ".keymap" ".yml" ];
+          src = nixpkgs.lib.sourceFilesBySuffices self [ ".conf" ".keymap" ".dtsi" ".yml" ".shield" ".overlay" ".defconfig" ];
 
-              board = "nice_nano_v2";
-              shield = "cradio_%PART%";
+          board = "nice_nano_v2";
+          shield = "cradio_%PART%";
 
-              zephyrDepsHash = "sha256-pOMHPrw2mlQ8H8kjG/CCTtB/drwc54gk74eA70YwEk4=";
+          zephyrDepsHash = "sha256-JbKMQOaU+lFDeOpheJ9/tl7+HXGaAb6iWKavI3Y8b44=";
 
-              meta = {
-                description = "ZMK firmware for the sweep keyboard";
-                license = lib.licenses.gpl3;
-                platforms = lib.platforms.all;
-              };
-            };
-
-            default = config.packages.firmware;
-
-            flash = zmk-nix.packages.flash.override { inherit (config.packages) firmware; };
-
-            update = zmk-nix.packages.update;
+          meta = {
+            description = "ZMK firmware";
+            license = nixpkgs.lib.licenses.mit;
+            platforms = nixpkgs.lib.platforms.all;
           };
-
-          devShells.default = zmk-nix.devShells.default;
-
-          formatter = pkgs.nixpkgs-fmt;
         };
+
+        flash = zmk-nix.packages.${system}.flash.override { inherit firmware; };
+        update = zmk-nix.packages.${system}.update;
+      });
+
+      devShells = forAllSystems (system: {
+        default = zmk-nix.devShells.${system}.default;
+      });
     };
 }
