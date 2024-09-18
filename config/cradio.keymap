@@ -19,6 +19,10 @@
 #define MY_N3  &mt LEFT_META N3
 #define MY_N4  &mt LEFT_ALT N4
 
+#define MY_GRAVE  &mt LEFT_SHIFT GRAVE
+#define MY_LBRC  &mt LEFT_CONTROL LBRC
+#define MY_LBKT  &mt LEFT_META LBKT
+#define MY_LPAR  &mt LEFT_ALT LPAR
 
 // Right hand
 #define MY_J  &mt RIGHT_ALT J
@@ -31,15 +35,19 @@
 #define MY_N9  &mt RIGHT_CONTROL N9
 #define MY_N0  &mt RIGHT_SHIFT N0
 
+#define MY_RPAR  &mt RIGHT_ALT RPAR 
+#define MY_RBKT  &mt RIGHT_META RBKT
+#define MY_RBRC  &mt RIGHT_CONTROL RBRC
+#define MY_SINGLE_QUOTE  &mt RIGHT_SHIFT SINGLE_QUOTE
+
+
+
 &mt {
     flavor = "tap-preferred";
     tapping-term-ms = <150>;
-    quick-tap-ms = <120>;
+    quick-tap-ms = <150>;
     global-quick-tap;
 };
-// &mt {
-//     tapping-term-ms = <600>;
-// };
 
 / {
   macros {
@@ -83,39 +91,9 @@
       };
       combo_tab {
         timeout-ms = <60>;
-        key-positions = <10 11>;
+        key-positions = <1 2>;
         bindings = <&kp TAB>;
       };
-      // combo_shift_left {
-      //   timeout-ms = <60>;
-      //   key-positions = <1 2>;
-      //   bindings = <&kp LEFT_SHIFT>;
-      // };
-      // combo_shift_right {
-      //   timeout-ms = <60>;
-      //   key-positions = <7 8>;
-      //   bindings = <&kp RIGHT_SHIFT>;
-      // };
-      // combo_ctrl_left {
-      //   timeout-ms = <60>;
-      //   key-positions = <11 12>;
-      //   bindings = <&kp LEFT_CONTROL>;
-      // };
-      // combo_ctrl_right {
-      //   timeout-ms = <60>;
-      //   key-positions = <17 18>;
-      //   bindings = <&kp RIGHT_CONTROL>;
-      // };
-      // combo_alt_left {
-      //   timeout-ms = <60>;
-      //   key-positions = <12 13>;
-      //   bindings = <&kp LEFT_ALT>;
-      // };
-      // combo_alt_right {
-      //   timeout-ms = <60>;
-      //   key-positions = <16 17>;
-      //   bindings = <&kp RIGHT_ALT>;
-      // };
   };
 
   keymap {
@@ -123,34 +101,34 @@
 
     default_layer {
       bindings = <
-       &kp Q     &kp W     &kp E     &kp R     &kp T                     &kp Y  &kp U  &kp I      &kp O     &kp P
-       MY_A MY_S      MY_D      MY_F      &kp G                     &kp H  MY_J  MY_K MY_L      MY_SEMICOLON
-       &kp Z     &kp X     &kp C     &kp V     &kp B                     &kp N  &kp M     &kp COMMA  &kp DOT   &kp SLASH
-                            &mo NAV  &kp SPACE                           &kp BACKSPACE  &sl NUM
+        &kp Q  &kp W  &kp E  &kp R    &kp T                               &kp Y          &kp U  &kp I      &kp O     &kp P
+        MY_A   MY_S   MY_D   MY_F     &kp G                               &kp H          MY_J   MY_K       MY_L      MY_SEMICOLON
+        &kp Z  &kp X  &kp C  &kp V    &kp B                               &kp N          &kp M  &kp COMMA  &kp DOT   &kp SLASH
+                             &mo NAV  &kp SPACE                           &kp BACKSPACE  &sl NUM
       >;
     };
     navigation {
       bindings = <
-      &none  &none  &none  &none  &none                                  &kp PAGE_UP    &none     &kp UP    &none      &none
-      &none  &none  &none  &none  &none                                  &kp TAB        &kp LEFT  &kp DOWN &kp RIGHT  &none
-      &none  &none  &none  &none  &none                                  &kp PAGE_DOWN  &none     &none     &none      &none
-                     &none &kp SPACE                                     &kp BACKSPACE  &sl SYM
+        &none  &none  &none  &none  &none                                 &kp PAGE_UP    &none     &kp UP    &none      &none
+        &none  &none  &none  &none  &none                                 &kp TAB        &kp LEFT  &kp DOWN &kp RIGHT  &none
+        &none  &none  &none  &none  &none                                 &kp PAGE_DOWN  &none     &none     &none      &none
+                             &none  &kp SPACE                             &kp BACKSPACE  &sl SYM
       >;
     };
     numbers {
       bindings = <
-        &kp F1     &kp F2     &kp F3     &kp F4     &kp F5               &kp F6  &kp F7     &kp F8     &kp F9     &kp F10
-        MY_N1  MY_N2  MY_N3  MY_N4  &kp N5               &kp N6  MY_N7  MY_N8  MY_N9  MY_N0
-        &kp F11    &none      &none      &none      &none                &none   &none      &none      &none      &kp F12
-                              &mo SYM  &kp SPACE                         &kp BACKSPACE  &none
+        &kp F1   &kp F2  &kp F3  &kp F4  &kp F5                           &kp F6        &kp F7  &kp F8  &kp F9  &kp F10
+        MY_N1    MY_N2   MY_N3   MY_N4   &kp N5                           &kp N6         MY_N7  MY_N8   MY_N9   MY_N0
+        &kp F11  &none   &none   &none   &none                            &none          &none  &none   &none   &kp F12
+                              &mo SYM  &kp SPACE                          &kp BACKSPACE  &none
       >;
     };
     symbols {
       bindings = <
-      &kp EXCL   &kp AT    &kp HASH  &kp DLLR  &kp PERCENT               &kp CARET  &kp AMPERSAND  &kp STAR  &kp MINUS  &kp EQUAL 
-      &kp GRAVE  &kp LBRC  &kp LBKT  &kp LPAR  &kp LT                    &kp GT     &kp RPAR       &kp RBKT  &kp RBRC   &kp SINGLE_QUOTE  
-      &none      &none     &none     &none     &none                     &none      &none          &none     &none      &kp BACKSLASH
-                                     &none &kp SPACE                     &kp BACKSPACE  &none
+        &kp EXCL  &kp AT   &kp HASH  &kp DLLR  &kp PERCENT                &kp CARET      &kp AMPERSAND  &kp STAR  &kp MINUS  &kp EQUAL
+        MY_GRAVE  MY_LBRC  MY_LBKT   MY_LPAR   &kp LT                     &kp GT         MY_RPAR        MY_RBKT   MY_RBRC    MY_SINGLE_QUOTE
+        &none     &none    &none     &none     &none                      &none          &none          &none     &none      &kp BACKSLASH
+                                       &none   &kp SPACE                  &kp BACKSPACE  &none
       >;
     };
   };
